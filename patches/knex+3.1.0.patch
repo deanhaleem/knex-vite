@@ -1,0 +1,152 @@
+diff --git a/node_modules/knex/lib/dialects/better-sqlite3/index.js b/node_modules/knex/lib/dialects/better-sqlite3/index.js
+index 85a5ba6..77a113a 100644
+--- a/node_modules/knex/lib/dialects/better-sqlite3/index.js
++++ b/node_modules/knex/lib/dialects/better-sqlite3/index.js
+@@ -4,7 +4,8 @@ const Client_SQLite3 = require('../sqlite3');
+ 
+ class Client_BetterSQLite3 extends Client_SQLite3 {
+   _driver() {
+-    return require('better-sqlite3');
++    const moduleName = 'better-sqlite3';
++    return require(moduleName);
+   }
+ 
+   // Get a raw connection from the database, returning a promise with the connection object.
+diff --git a/node_modules/knex/lib/dialects/mssql/index.js b/node_modules/knex/lib/dialects/mssql/index.js
+index 67fba02..3d454a4 100644
+--- a/node_modules/knex/lib/dialects/mssql/index.js
++++ b/node_modules/knex/lib/dialects/mssql/index.js
+@@ -91,7 +91,8 @@ class Client_MSSQL extends Client {
+   }
+ 
+   _driver() {
+-    const tds = require('tedious');
++    const moduleName = 'tedious';
++    const tds = require(moduleName);
+ 
+     return tds;
+   }
+diff --git a/node_modules/knex/lib/dialects/mysql/index.js b/node_modules/knex/lib/dialects/mysql/index.js
+index fe316c5..fe60911 100644
+--- a/node_modules/knex/lib/dialects/mysql/index.js
++++ b/node_modules/knex/lib/dialects/mysql/index.js
+@@ -21,7 +21,8 @@ const ViewBuilder = require('./schema/mysql-viewbuilder');
+ // 'lib/query/compiler', respectively.
+ class Client_MySQL extends Client {
+   _driver() {
+-    return require('mysql');
++    const moduleName = 'mysql';
++    return require(moduleName);
+   }
+ 
+   queryBuilder() {
+diff --git a/node_modules/knex/lib/dialects/mysql2/index.js b/node_modules/knex/lib/dialects/mysql2/index.js
+index a3c7139..7aeec2d 100644
+--- a/node_modules/knex/lib/dialects/mysql2/index.js
++++ b/node_modules/knex/lib/dialects/mysql2/index.js
+@@ -12,7 +12,8 @@ class Client_MySQL2 extends Client_MySQL {
+   }
+ 
+   _driver() {
+-    return require('mysql2');
++    const moduleName = 'mysql2';
++    return require(moduleName);
+   }
+ 
+   initializeDriver() {
+diff --git a/node_modules/knex/lib/dialects/oracledb/index.js b/node_modules/knex/lib/dialects/oracledb/index.js
+index dc9af90..367ffb9 100644
+--- a/node_modules/knex/lib/dialects/oracledb/index.js
++++ b/node_modules/knex/lib/dialects/oracledb/index.js
+@@ -41,7 +41,8 @@ class Client_Oracledb extends Client_Oracle {
+ 
+   _driver() {
+     const client = this;
+-    const oracledb = require('oracledb');
++    const moduleName = 'oracledb';
++    const oracledb = require(moduleName);
+     client.fetchAsString = [];
+     if (this.config.fetchAsString && Array.isArray(this.config.fetchAsString)) {
+       this.config.fetchAsString.forEach(function (type) {
+diff --git a/node_modules/knex/lib/dialects/oracledb/utils.js b/node_modules/knex/lib/dialects/oracledb/utils.js
+index b71ad3f..c9660ee 100644
+--- a/node_modules/knex/lib/dialects/oracledb/utils.js
++++ b/node_modules/knex/lib/dialects/oracledb/utils.js
+@@ -37,7 +37,8 @@ function readStream(stream, type) {
+ }
+ 
+ const lobProcessing = function (stream) {
+-  const oracledb = require('oracledb');
++  const moduleName = 'oracledb';
++  const oracledb = require(moduleName);
+ 
+   /**
+    * @type 'string' | 'buffer'
+diff --git a/node_modules/knex/lib/dialects/pgnative/index.js b/node_modules/knex/lib/dialects/pgnative/index.js
+index 60ba4fb..ce68a45 100644
+--- a/node_modules/knex/lib/dialects/pgnative/index.js
++++ b/node_modules/knex/lib/dialects/pgnative/index.js
+@@ -10,7 +10,8 @@ class Client_PgNative extends Client_PG {
+   }
+ 
+   _driver() {
+-    return require('pg').native;
++    const moduleName = 'pg';
++    return require(moduleName).native;
+   }
+ 
+   _stream(connection, obj, stream, options) {
+diff --git a/node_modules/knex/lib/dialects/postgres/index.js b/node_modules/knex/lib/dialects/postgres/index.js
+index 8b73cbb..255ec27 100644
+--- a/node_modules/knex/lib/dialects/postgres/index.js
++++ b/node_modules/knex/lib/dialects/postgres/index.js
+@@ -60,7 +60,8 @@ class Client_PG extends Client {
+   }
+ 
+   _driver() {
+-    return require('pg');
++    const moduleName = 'pg';
++    return require(moduleName);
+   }
+ 
+   wrapIdentifierImpl(value) {
+@@ -187,9 +188,10 @@ class Client_PG extends Client {
+   _stream(connection, obj, stream, options) {
+     if (!obj.sql) throw new Error('The query is empty');
+ 
++    const moduleName = 'pg-query-stream';
+     const PGQueryStream = process.browser
+       ? undefined
+-      : require('pg-query-stream');
++      : require(moduleName);
+     const sql = obj.sql;
+ 
+     return new Promise(function (resolver, rejecter) {
+diff --git a/node_modules/knex/lib/dialects/redshift/index.js b/node_modules/knex/lib/dialects/redshift/index.js
+index 7b5c41b..b4120f2 100644
+--- a/node_modules/knex/lib/dialects/redshift/index.js
++++ b/node_modules/knex/lib/dialects/redshift/index.js
+@@ -41,7 +41,8 @@ class Client_Redshift extends Client_PG {
+   }
+ 
+   _driver() {
+-    return require('pg');
++    const moduleName = 'pg';
++    return require(moduleName);
+   }
+ 
+   // Ensures the response is returned in the same format as other clients.
+diff --git a/node_modules/knex/lib/dialects/sqlite3/index.js b/node_modules/knex/lib/dialects/sqlite3/index.js
+index 7524c1c..f8c9841 100644
+--- a/node_modules/knex/lib/dialects/sqlite3/index.js
++++ b/node_modules/knex/lib/dialects/sqlite3/index.js
+@@ -39,7 +39,8 @@ class Client_SQLite3 extends Client {
+   }
+ 
+   _driver() {
+-    return require('sqlite3');
++    const moduleName = 'sqlite3';
++    return require(moduleName);
+   }
+ 
+   schemaCompiler() {

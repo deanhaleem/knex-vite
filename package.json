@@ -1,0 +1,21 @@
+{
+  "name": "knex-vite",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "vite build",
+    "patch": "patch-package"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "knex": "^3.1.0",
+    "mysql": "^2.18.1",
+    "patch-package": "^8.0.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.2"
+  }
+}
